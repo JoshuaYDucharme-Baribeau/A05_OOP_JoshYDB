@@ -11,5 +11,11 @@ namespace notepadApplication
         {
             InitializeComponent();
         }
+
+        private void mnu_about(object sender, System.Windows.RoutedEventArgs e)
+        {
+            AboutWindow abt_window = new AboutWindow();
+            abt_window.ShowDialog();
+        }
     }
 }

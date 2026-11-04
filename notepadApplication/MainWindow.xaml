@@ -5,8 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:notepadApplication"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" MinHeight="110" MinWidth="200" Height="450" Width="800">
+        <!--Title must be dynamic, either untitled or the name of the file-->
     <Grid>
+        <Menu VerticalAlignment="Top" Height="20">
+            <MenuItem Header="File">
+                <MenuItem Header="_New"></MenuItem>
+                <MenuItem Header="_Open"></MenuItem>
+                <MenuItem Header="_Save"></MenuItem>
+                <MenuItem Header="Save _As"></MenuItem>
+                <MenuItem Header="E_xit"></MenuItem>
+            </MenuItem>
+            
+            <MenuItem Header="_View">
+                <MenuItem Header="_Wrap Text"></MenuItem>
+            </MenuItem>
 
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About">
+                    <!--instantiate/showdialogue the about window-->
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        
+        <!--textbox/work area goes here-->
+        <TextBox VerticalAlignment="Top" Margin="0,20,0,0"  Width="auto" >
+
+        </TextBox>
+
+
+
+            <!--status bar-->
+        <StatusBar VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Width="auto" Background="LightGray" >
+
+            <TextBlock HorizontalAlignment="Center" >Characters: <!--dynamic count from the work area's properties?--></TextBlock>
+            
+        </StatusBar>
+        
     </Grid>
 </Window>

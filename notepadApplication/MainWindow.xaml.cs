@@ -1,7 +1,4 @@
 ﻿
-
-using Microsoft.Win32;
-
 namespace notepadApplication
 {
     /// <summary>
@@ -14,8 +11,6 @@ namespace notepadApplication
         {
             InitializeComponent();
         }
-
-        //
 
         //establish properties
         private SaveStatus _saveState;
@@ -62,7 +57,7 @@ namespace notepadApplication
 
         private void mnu_saveAs(object sender, System.Windows.RoutedEventArgs e)
         {
-            SaveFileDialog saveAsDialogWindow = new SaveFileDialog();
+            Microsoft.Win32.SaveFileDialog saveAsDialogWindow = new Microsoft.Win32.SaveFileDialog();
 
             //add filters so the dialogue box only shows .txt's and default's the extension to txt
             saveAsDialogWindow.Filter = "Text Files (*.txt)|*.txt";

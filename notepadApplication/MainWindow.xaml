@@ -5,9 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:notepadApplication"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="110" MinWidth="200" Height="450" Width="800">
+        Title="Untitled" MinHeight="110" MinWidth="200" Height="450" Width="800">
         <!--Title must be dynamic, either untitled or the name of the file-->
     <Grid>
+        <!--1 column, rendundant but allows for expnsion later-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <!--1 rows, rendundant but allows for expnsion later-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <!--content of grid-->
         <Menu VerticalAlignment="Top" Height="20">
             <MenuItem Header="File">
                 <MenuItem Header="_New"></MenuItem>
@@ -28,17 +38,30 @@
             </MenuItem>
         </Menu>
         
-        <!--textbox/work area goes here-->
-        <TextBox VerticalAlignment="Top" Margin="0,20,0,0"  Width="auto" >
+        <!--textbox/work area here-->
+        <!--AcceptsReturn & AcceptsTab to allow newlines and tabstops-->
+        <!--
+            SPECIAL NOTE: I was going to use a rich textbox, but it does not support 
+            disabling text wrap, which is a requirement. I have opted for default textbox.
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        -->
+            <TextBox 
+                VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                Margin="0,20,0,20" 
+                AcceptsReturn="True"
+                AcceptsTab="True"
+                ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                Name="Untitled"
+                TextWrapping="NoWrap"
+            ></TextBox>
+        <!--
+        </ScrollViewer>
 
-        </TextBox>
 
+    status bar-->
+        <StatusBar VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Width="auto" Height="20" Background="LightGray" >
 
-
-            <!--status bar-->
-        <StatusBar VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Width="auto" Background="LightGray" >
-
-            <TextBlock HorizontalAlignment="Center" Text="Chars: " ><!--dynamic count from the work area's properties?--></TextBlock>
+            <TextBlock HorizontalAlignment="Stretch" Width="auto" Text="Chars: " ><!--dynamic count from the work area's properties?--></TextBlock>
             
         </StatusBar>
         

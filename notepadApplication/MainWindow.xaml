@@ -21,7 +21,7 @@
         <!--content of grid-->
         <Menu VerticalAlignment="Top" Height="20">
             <MenuItem Header="_File">
-                <MenuItem Header="_New"></MenuItem>
+                <MenuItem Header="_New" Click="mnu_newDoc"></MenuItem>
                 <MenuItem Header="_Open"></MenuItem>
                 <MenuItem Header="_Save" Click="mnu_save"></MenuItem>
                 <MenuItem Header="Save _As" Click="mnu_saveAs"></MenuItem>
@@ -29,13 +29,11 @@
             </MenuItem>
             
             <MenuItem Header="_View">
-                <MenuItem Name="element_mnu_wrap" Header="_Wrap Text [Off]" Click="mnu_WrapText"></MenuItem>
+                <MenuItem Name="element_mnu_wrap" Header="_Wrap Text [Off]" Click="mnu_WrapText" IsCheckable="True" IsChecked="False"></MenuItem>
             </MenuItem>
 
             <MenuItem Header="_Help">
-                <MenuItem Header="_About" Click="mnu_about">
-                    <!--instantiate/showdialogue the about window-->
-                </MenuItem>
+                <MenuItem Header="_About" Click="mnu_about"></MenuItem>
             </MenuItem>
         </Menu>
         

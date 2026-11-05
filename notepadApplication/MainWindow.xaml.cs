@@ -1,4 +1,6 @@
-﻿namespace notepadApplication
+﻿//using Microsoft.Win32;
+
+namespace notepadApplication
 {
 
     public partial class MainWindow : System.Windows.Window
@@ -19,18 +21,59 @@
             set { _saveState = value; }
         }
 
-
         internal string? SaveTarget
         {
             get { return _saveTarget; }
             set { _saveTarget = value; }
         }
 
+
+
         //methods
         private void mnu_about(object sender, System.Windows.RoutedEventArgs e)
         {
             AboutWindow abt_window = new AboutWindow();
             abt_window.ShowDialog();
+        }
+
+        private void mnu_open(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+            int action_to_take = -1; // 0 for new document[Yes], 1 for save action [no], -1 for nothing [cancel]
+
+            //check if there is unsaved info
+            if (this.SaveState == SaveStatus.Edited)
+            {
+                //if unsaved info, prompt to: continue anyway [Yes/0]; Save [No/1]; or Cancel [Cancel/-1]
+                action_to_take = Confirm_NewDoc();
+
+                //if they chose No, prompt them to save
+                if (action_to_take == 1)
+                {
+                    mnu_save(sender, e);
+                }
+                else
+                {
+                    //do nothing as the document remains unsaved
+                }
+            }
+
+            //if there is nothing unsaved, allow the opening of the new document
+            //NB: Unsaved state is the state of a new document which has no content, and thus does not need to be saved before opening a new one
+            if (this.SaveState == SaveStatus.Saved || this.SaveState == SaveStatus.Unsaved || action_to_take == 0)
+            {
+                OpenDocument();
+            }
+            //user either did not save when prompted, or canceled when asked for confirmation:
+            else
+            {
+                //do nothing
+            }
+            //return;
+            //else open file dialog, and load content from document 
+
+            return; //standard return
+
         }
 
         private void mnu_save(object sender, System.Windows.RoutedEventArgs e)
@@ -111,14 +154,6 @@
         }
 
 
-        //make an enum for the savestatus of the document
-        internal enum SaveStatus
-        {
-            Unsaved,
-            Saved,
-            Edited
-        }
-
         private void mnu_newDoc(object sender, System.Windows.RoutedEventArgs e)
         {
             int action_to_take = -1; // 0 for new document[Yes], 1 for save action [no], -1 for nothing [cancel]
@@ -155,6 +190,9 @@
         }
 
 
+
+
+        //helper methods
         private int Confirm_NewDoc()
         {
             int action;
@@ -184,6 +222,31 @@
             return action;
         }
 
+        //Open a document and load it into the textbox
+        void OpenDocument()
+        {
+            Microsoft.Win32.OpenFileDialog openFileDialogWindow = new Microsoft.Win32.OpenFileDialog();
+
+            //add filters so the dialogue box only shows .txt's and default's the extension to txt
+            openFileDialogWindow.Filter = "Text Files (*.txt)|*.txt";
+
+            if (openFileDialogWindow.ShowDialog() == true)
+            {
+                //write the content of the file to the textbox
+                //Personal note for future use: without data scrubbing, this is likely vulnerable to injection
+                this.WorkingTextArea.Text = System.IO.File.ReadAllText(openFileDialogWindow.FileName);
+                //update the save state, save target and title of the window to remove asterisk if any
+                this.SaveState = SaveStatus.Saved;
+                this.SaveTarget = openFileDialogWindow.FileName;
+                this.Title = this.SaveTarget.ToString();
+
+            }
+            else
+            {
+                //do nothing
+            }
+        }
+
         //New document (actually the same txtbox, but resets all the defaults
         //and content instead of opening a new window and using more memory)
         void CreateNewDocument()
@@ -207,6 +270,18 @@
             //set SaveState to unsaved
             this.SaveState = SaveStatus.Unsaved;
         }
+
+
+
+
+        //make an enum for the savestatus of the document
+        internal enum SaveStatus
+        {
+            Unsaved,
+            Saved,
+            Edited
+        }
+
 
     }
 }

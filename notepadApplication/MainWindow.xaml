@@ -22,7 +22,7 @@
         <Menu VerticalAlignment="Top" Height="20">
             <MenuItem Header="_File">
                 <MenuItem Header="_New" Click="mnu_newDoc"></MenuItem>
-                <MenuItem Header="_Open"></MenuItem>
+                <MenuItem Header="_Open" Click="mnu_open"></MenuItem>
                 <MenuItem Header="_Save" Click="mnu_save"></MenuItem>
                 <MenuItem Header="Save _As" Click="mnu_saveAs"></MenuItem>
                 <MenuItem Header="E_xit" ></MenuItem>

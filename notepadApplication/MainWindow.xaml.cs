@@ -92,6 +92,24 @@ namespace notepadApplication
 
         }
 
+        //* triggers when selecting wrap text from window's menu
+        private void mnu_WrapText(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+            if(this.WorkingTextArea.TextWrapping == System.Windows.TextWrapping.NoWrap)
+            {
+                this.WorkingTextArea.TextWrapping = System.Windows.TextWrapping.Wrap;
+                this.element_mnu_wrap.Header = "_Wrap Text [ON]";
+
+            }
+            else if(this.WorkingTextArea.TextWrapping == System.Windows.TextWrapping.Wrap)
+            {
+                this.WorkingTextArea.TextWrapping = System.Windows.TextWrapping.NoWrap;
+                this.element_mnu_wrap.Header = "_Wrap Text [OFF]";
+            }
+        }
+
+
         //make an enum for the savestatus of the document
         internal enum SaveStatus
         {
@@ -99,6 +117,5 @@ namespace notepadApplication
             Saved,
             Edited
         }
-
     }
 }

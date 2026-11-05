@@ -29,7 +29,7 @@
             </MenuItem>
             
             <MenuItem Header="_View">
-                <MenuItem Header="_Wrap Text"></MenuItem>
+                <MenuItem Name="element_mnu_wrap" Header="_Wrap Text [Off]" Click="mnu_WrapText"></MenuItem>
             </MenuItem>
 
             <MenuItem Header="_Help">
@@ -46,13 +46,13 @@
             disabling text wrap, which is a requirement. I have opted for default textbox.
         -->
             <TextBox 
+                Name="WorkingTextArea"
                 VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
                 Margin="0,20,0,20" 
                 AcceptsReturn="True"
                 AcceptsTab="True"
                 VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
                 
-                Name="WorkingTextArea"
                 TextWrapping="NoWrap"
                 
                 TextChanged="WorkArea_TextChanged"

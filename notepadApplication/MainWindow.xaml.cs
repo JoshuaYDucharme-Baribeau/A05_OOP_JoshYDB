@@ -45,12 +45,17 @@ namespace notepadApplication
             if (this.SaveState == SaveStatus.Edited)
             {
                 //if unsaved info, prompt to: continue anyway [Yes/0]; Save [No/1]; or Cancel [Cancel/-1]
-                action_to_take = Confirm_NewDoc();
+                action_to_take = Confirm_Open();
 
-                //if they chose No, prompt them to save
-                if (action_to_take == 1)
+                //if they chose Yes, prompt them to save
+                if (action_to_take == 0)
                 {
                     mnu_save(sender, e);
+                    if(this.SaveState == SaveStatus.Saved)
+                    {
+                        //dialogue box to confirm save and advise the user a new dialogue box will open
+                        System.Windows.MessageBox.Show("The current document has been saved. Select a document to open.", "Notice", System.Windows.MessageBoxButton.OK);
+                    }
                 }
                 else
                 {
@@ -60,7 +65,7 @@ namespace notepadApplication
 
             //if there is nothing unsaved, allow the opening of the new document
             //NB: Unsaved state is the state of a new document which has no content, and thus does not need to be saved before opening a new one
-            if (this.SaveState == SaveStatus.Saved || this.SaveState == SaveStatus.Unsaved || action_to_take == 0)
+            if (this.SaveState == SaveStatus.Saved || this.SaveState == SaveStatus.Unsaved || action_to_take == 1)
             {
                 OpenDocument();
             }
@@ -156,18 +161,23 @@ namespace notepadApplication
 
         private void mnu_newDoc(object sender, System.Windows.RoutedEventArgs e)
         {
-            int action_to_take = -1; // 0 for new document[Yes], 1 for save action [no], -1 for nothing [cancel]
+            int action_to_take = -1; // 0 for save action[Yes], 1 for document without save [no], -1 for nothing [cancel]
             
             //check if there is unsaved info
             if(this.SaveState == SaveStatus.Edited)
             {
-                //if unsaved info, prompt to: continue anyway [Yes/0]; Save [No/1]; or Cancel [Cancel/-1]
+                //if unsaved info, prompt to: save or not save or cancel
                 action_to_take = Confirm_NewDoc();
                 
-                //if they chose No, prompt them to save
-                if (action_to_take == 1)
+                //if they chose Yes, prompt them to save
+                if (action_to_take == 0)
                 {
                     mnu_save(sender, e);
+                    if (this.SaveState == SaveStatus.Saved)
+                    {
+                        //dialogue box to confirm save and advise the user a new dialogue box will open
+                        System.Windows.MessageBox.Show("The current document has been saved. A new document will be created.", "Notice", System.Windows.MessageBoxButton.OK);
+                    }
                 }
                 else
                 {
@@ -177,7 +187,7 @@ namespace notepadApplication
 
             //if there is nothing unsaved, allow the opening of the new document
                 //NB: Unsaved state is the state of a new document which has no content, and thus does not need to be saved before opening a new one
-            if(this.SaveState == SaveStatus.Saved || this.SaveState == SaveStatus.Unsaved || action_to_take == 0)
+            if(this.SaveState == SaveStatus.Saved || this.SaveState == SaveStatus.Unsaved || action_to_take == 1)
             {
                 CreateNewDocument();
             }
@@ -198,13 +208,42 @@ namespace notepadApplication
             int action;
             System.Windows.MessageBoxResult result = System.Windows.MessageBox.Show
                 (
-                    "The current document has unsaved changes.\n Would you like to discard the changes without saving?",
+                    "The current document has unsaved changes.\n Would you like to save the changes before creating a new document?",
                     "Warning! Unsaved changes",
                     System.Windows.MessageBoxButton.YesNoCancel,
                     System.Windows.MessageBoxImage.Warning
                 );
             //assign an int to the proper action to take
             switch(result)
+            {
+                case System.Windows.MessageBoxResult.Yes:
+                    action = 0;
+                    break;
+                case System.Windows.MessageBoxResult.No:
+                    action = 1;
+                    break;
+                case System.Windows.MessageBoxResult.Cancel:
+                    action = -1;
+                    break;
+                default:
+                    action = -1;
+                    break;
+            }
+            return action;
+        }
+
+        private int Confirm_Open()
+        {
+            int action;
+            System.Windows.MessageBoxResult result = System.Windows.MessageBox.Show
+                (
+                    "The current document has unsaved changes.\n Would you like to save the changes before opening a new document?",
+                    "Warning! Unsaved changes",
+                    System.Windows.MessageBoxButton.YesNoCancel,
+                    System.Windows.MessageBoxImage.Warning
+                );
+            //assign an int to the proper action to take
+            switch (result)
             {
                 case System.Windows.MessageBoxResult.Yes:
                     action = 0;

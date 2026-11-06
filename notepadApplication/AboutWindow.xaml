@@ -1,4 +1,11 @@
-﻿<Window x:Class="notepadApplication.AboutWindow"
+﻿<!--
+     FILE             : AboutWindow.xaml
+     PROJECT          : Assignment 5
+     PROGRAMMER       : Joshua Ducharme-Baribeau
+     FIRST VERSION    : November 8 2026
+     DESCRIPTION      : XAML src file for the About window.
+-->
+<Window x:Class="notepadApplication.AboutWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,13 +13,12 @@
         xmlns:local="clr-namespace:notepadApplication"
         mc:Ignorable="d"
         Title="About" MinHeight="100" MinWidth="150" Height="400" Width="600">
-    
+
     <Grid Background="LightCyan">
-        <!--1 column, rendundant but allows for expnsion later-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <!--1 rows, rendundant but allows for expnsion later-->
+
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>

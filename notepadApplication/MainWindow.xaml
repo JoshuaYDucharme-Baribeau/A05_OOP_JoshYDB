@@ -1,4 +1,11 @@
-﻿<Window x:Class="notepadApplication.MainWindow"
+﻿<!--
+     FILE             : MainWindow.xaml
+     PROJECT          : Assignment 5
+     PROGRAMMER       : Joshua Ducharme-Baribeau
+     FIRST VERSION    : November 8 2026
+     DESCRIPTION      : XAML src file for the main application window.
+-->
+<Window x:Class="notepadApplication.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +14,6 @@
         mc:Ignorable="d"
         Name="NotepadWindow"
         Title="Untitled" MinHeight="110" MinWidth="200" Height="450" Width="800" Closing="Window_Closing">
-        <!--Title must be dynamic, either untitled or the name of the file-->
     <Grid>
         <!--1 column, rendundant but allows for expansion later-->
         <Grid.ColumnDefinitions>
@@ -37,10 +43,8 @@
             </MenuItem>
         </Menu>
         
-        <!--textbox/work area here-->
-        <!--AcceptsReturn & AcceptsTab to allow newlines and tabstops-->
         <!--
-            SPECIAL NOTE: I was going to use a rich textbox, but it does not support 
+            NOTE: I was going to use a rich textbox, but it does not natively support 
             disabling text wrap, which is a requirement. I have opted for default textbox.
         -->
             <TextBox 

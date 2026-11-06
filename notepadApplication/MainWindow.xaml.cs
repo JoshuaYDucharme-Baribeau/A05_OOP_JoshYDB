@@ -1,7 +1,13 @@
-﻿
-
-//personal note for future development:
-//  consider refactoring the confirmation dialogs, but the standard clickevents to trigger messageBox does not allow passing of additional arguments without some workarounds
+﻿/*
+ * FILE             : MainWindow.xaml.cs
+ * PROJECT          : Assignment 5
+ * PROGRAMMER       : Joshua Ducharme-Baribeau
+ * FIRST VERSION    : November 8 2026
+ * DESCRIPTION      : C# Source file for the main application window's class.
+ *                    
+ *                    
+ *                    
+ */
 
 
 namespace notepadApplication
@@ -9,7 +15,7 @@ namespace notepadApplication
 
     public partial class MainWindow : System.Windows.Window
     {
-
+        //constructor
         public MainWindow()
         {
             InitializeComponent();
@@ -35,49 +41,138 @@ namespace notepadApplication
 
         //methods
         //  event handlers
+
+        /*
+         *	METHOD  	: mnu_about
+         *	DESCRIPTION	: method that opens the about window
+         *		
+         *	
+         *	PARAMETERS	: object sender : the object that triggered the event
+         *                System.Windows.RoutedEventArgs e : arguments passed by the sender	
+         *	
+         *	
+         *	RETURNS		: VOID
+         */
         private void mnu_about(object sender, System.Windows.RoutedEventArgs e)
         {
             AboutWindow abt_window = new AboutWindow();
             abt_window.ShowDialog();
         }
 
-        // triggers when selecting wrap text from window's menu
+
+        /*
+         *	METHOD  	: mnu_WrapText
+         *	DESCRIPTION	: event handler that calls the method to
+         *		          toggle the word wrap option
+         *	
+         *	PARAMETERS	: object sender : the object that triggered the event
+         *                System.Windows.RoutedEventArgs e : arguments passed by the sender	
+         *	
+         *	
+         *	RETURNS		: VOID
+         */
         private void mnu_WrapText(object sender, System.Windows.RoutedEventArgs e)
         {
             ToggleWrapOption();
         }
 
-        //only handles the event so that the actual logic for saving can be used by other events
+
+        /*
+         *	METHOD  	: mnu_save
+         *	DESCRIPTION	: event handler that calls the method to
+         *		          Save a document
+         *	
+         *	PARAMETERS	: object sender : the object that triggered the event
+         *                System.Windows.RoutedEventArgs e : arguments passed by the sender	
+         *	
+         *	
+         *	RETURNS		: VOID
+         */
         private void mnu_save(object sender, System.Windows.RoutedEventArgs e)
         {
             SaveDocument();
         }
 
+        /*
+         *	METHOD  	: mnu_saveAs
+         *	DESCRIPTION	: event handler that calls the method to
+         *		          open the SaveAs dialogue
+         *	
+         *	PARAMETERS	: object sender : the object that triggered the event
+         *                System.Windows.RoutedEventArgs e : arguments passed by the sender	
+         *	
+         *	
+         *	RETURNS		: VOID
+         */
         private void mnu_saveAs(object sender, System.Windows.RoutedEventArgs e)
         {
             SaveDocumentAs();
         }
 
+
+        /*
+         *	METHOD  	: mnu_newDoc
+         *	DESCRIPTION	: event handler that calls the method to
+         *		          handle logic for creating a new document
+         *	
+         *	PARAMETERS	: object sender : the object that triggered the event
+         *                System.Windows.RoutedEventArgs e : arguments passed by the sender	
+         *	
+         *	
+         *	RETURNS		: VOID
+         */
         private void mnu_newDoc(object sender, System.Windows.RoutedEventArgs e)
         {
             DetermineActionAndPrompt("new");
         }
 
 
+        /*
+         *	METHOD  	: mnu_open
+         *	DESCRIPTION	: event handler that calls the method to
+         *		          handle logic for opening an existing document
+         *	
+         *	PARAMETERS	: object sender : the object that triggered the event
+         *                System.Windows.RoutedEventArgs e : arguments passed by the sender	
+         *	
+         *	
+         *	RETURNS		: VOID
+         */
         private void mnu_open(object sender, System.Windows.RoutedEventArgs e)
         {
             DetermineActionAndPrompt("open");
         }
 
-        //Exit menu item
+
+        /*
+         *	METHOD  	: mnu_exit_app
+         *	DESCRIPTION	: event handler that calls the method to
+         *		          close the window (and thus the application)
+         *		          This function is "interrupted" by the XAML "Closing" Event
+         *		          
+         *	PARAMETERS	: object sender : the object that triggered the event
+         *                System.Windows.RoutedEventArgs e : arguments passed by the sender	
+         *		
+         *	RETURNS		: VOID
+         */
         private void mnu_exit_app(object sender, System.Windows.RoutedEventArgs e)
         {
             this.Close();
         }
 
-        //Changes the standard "X" window button to not close the window automatically.
-        //Instead, it calls the mnu_exit method so that the behaviour is identical (as per assignment instructions)
-        //this prrovides the user the opportunity to save unsaved changes
+
+
+        /*
+         *	METHOD  	: Window_Closing
+         *	DESCRIPTION	: event handler that is called when the "Closing" event occurs
+         *		          Calls a method to determine if the application
+         *		          can be exited safely
+         *	
+         *	PARAMETERS	: object sender : the object that triggered the event
+         *                System.ComponentModel.CancelEventArgs e : arguments passed by the sender	
+         *		
+         *	RETURNS		: VOID
+         */
         //https://learn.microsoft.com/en-us/dotnet/desktop/wpf/windows/how-to-close-window-dialog-box
         //https://learn.microsoft.com/en-us/dotnet/desktop/wpf/windows/#cancel-window-closure
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -86,16 +181,26 @@ namespace notepadApplication
             //determine action to take, pass "exit"
             if(DetermineActionAndPrompt("exit") == -1)
             {
+                //cancel the exit if it was determined to do so
                 e.Cancel = true;
             }
             else
             {
-                //do nothing to interrupt, app will close
+                //do nothing to interrupt the exit, app will close
             }
         }
 
-
-        //triggers when the textbox's text is changed by the user
+        /*
+         *	METHOD  	: WorkArea_TextChanged
+         *	DESCRIPTION	: event handler that updates the SaveState of 
+         *	              the application if the text has been modified
+         *		          adds an asterisk to the file name and updates the status bar
+         *		          
+         *	PARAMETERS	: object sender : the object that triggered the event
+         *                System.Windows.RoutedEventArgs e : arguments passed by the sender	
+         *		
+         *	RETURNS		: VOID
+         */
         private void WorkArea_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             //only triggers once per save
@@ -109,16 +214,26 @@ namespace notepadApplication
 
             //update the statusbar
             this.StatusText.Text = "Chars: " + this.WorkingTextArea.Text.Length.ToString();
-            //can also add lines and other details to this status bar if desired
+            //can also add line count and other details to this status bar if desired
 
         }
 
 
 
         //Methods
-            //logic and helpers
+        //  logic heavy methods and helpers
         
-        //making this reusable by the other menu item logic
+        /*
+         *	METHOD  	: ConfirmUserAction
+         *	DESCRIPTION	: Helper method used to display a confirmation dialog
+         *	              to the user and return an int based on the result
+         *		          
+         *		          
+         *	PARAMETERS	: string message    : A message to prompt the user
+         *                string caption    : Caption for the dialog box displayed to the user
+         *		
+         *	RETURNS		: int action    : an int indicating whether the user selected Yes/0 or No/1 or Cancel/-1
+         */
         private int ConfirmUserAction(string message, string caption)
         {
             int action;
@@ -148,6 +263,18 @@ namespace notepadApplication
             return action;
         }
 
+        /*
+         *	METHOD  	: DetermineActionAndPrompt
+         *	DESCRIPTION	: A logic heavy method that determines if
+         *	              the user needs to be prompted to save before completing
+         *		          the process
+         *		          
+         *	PARAMETERS	: string action : a string passed to indicate what the caller's
+         *	                                desired action is
+         *                	
+         *		
+         *	RETURNS		: int result    : used for cancelling the "Closing" event by returning -1
+         */
         private int DetermineActionAndPrompt(string action)
         {
             int result = 0;
@@ -230,7 +357,17 @@ namespace notepadApplication
         }
 
 
-        //save logic
+        /*
+         *	METHOD  	: SaveDocument
+         *	DESCRIPTION	: Method containing the logic for saving a document
+         *                Updates the save status, save target and window title
+         *	              If the document has not been saved previously
+         *	              (i.e. SaveTarget is null) the SaveDocumentAs method will be called
+         *		
+         *	PARAMETERS	: NONE
+         *		
+         *	RETURNS		: VOID
+         */
         private void SaveDocument()
         {
             //if this is not the first save, and there is a save target
@@ -250,15 +387,27 @@ namespace notepadApplication
             return;
         }
 
+        /*
+         *	METHOD  	: SaveDocumentAs
+         *	DESCRIPTION	: Method containing the logic to open the saveAsDialog window
+         *	              Updates the save status, save target and window title
+         *	              
+         *		          		          
+         *	PARAMETERS	: NONE
+         *                	
+         *		
+         *	RETURNS		: VOID
+         */
         private void SaveDocumentAs()
         {
             Microsoft.Win32.SaveFileDialog saveAsDialogWindow = new Microsoft.Win32.SaveFileDialog();
 
-            //add filters so the dialogue box only shows .txt's and default's the extension to txt
+            //add filters so the dialogue box only shows .txt's and it defaults the extension to txt
             saveAsDialogWindow.Filter = "Text Files (*.txt)|*.txt";
 
             if (saveAsDialogWindow.ShowDialog() == true)
             {
+                //write the textbox content to the file selected in the dialog box
                 System.IO.File.WriteAllText(saveAsDialogWindow.FileName, this.WorkingTextArea.Text);
                 //update the save state, save target and title of the window to remove asterisk if any
                 this.SaveState = SaveStatus.Saved;
@@ -266,11 +415,20 @@ namespace notepadApplication
                 this.Title = this.SaveTarget.ToString();
 
             }
-            return; //standard return
+            return;
         }
 
-        //New document (actually the same txtbox, but resets all the defaults
-        //and content instead of opening a new window and using more memory)
+
+        /*
+         *	METHOD  	: ResetWorkArea
+         *	DESCRIPTION	: Method which resets the textbox 
+         *	              contents, save state, window title, status bar
+         *	              is an illusion of a new document instead of opening a new window	              
+         *		          		          
+         *	PARAMETERS	: NONE
+         *                	
+         *	RETURNS		: VOID
+         */
         private void ResetWorkArea()
         {
             //wipe txtbox; set SaveTarget to null; set to title to Untitled;
@@ -281,15 +439,26 @@ namespace notepadApplication
             //set statusbar text to 0 chars; set SaveState to unsaved
             this.StatusText.Text = "Chars: 0";
             this.SaveState = SaveStatus.Unsaved;
+            
 
             //set wrap+checkbox to disabled;
-                //Uncomment these lines to have the state of the textwrap reset to nowrap for new documents
+            //  Uncomment these lines to have the state of the textwrap reset to nowrap for new documents
+
             //this.WorkingTextArea.TextWrapping = System.Windows.TextWrapping.NoWrap;
             //this.element_mnu_wrap.Header = "_Wrap Text [OFF]";
             //this.element_mnu_wrap.IsChecked = false;
         }
 
-        //Open a document and load it into the textbox
+        /*
+         *	METHOD  	: SaveDocumentAs
+         *	DESCRIPTION	: Method containing the logic to open an existing txt file
+         *	              opens the openFileDialogWindow
+         *	              Updates the save status, save target and window title
+         *	              
+         *	PARAMETERS	: NONE
+         *                	
+         *	RETURNS		: VOID
+         */
         void OpenDocument()
         {
             Microsoft.Win32.OpenFileDialog openFileDialogWindow = new Microsoft.Win32.OpenFileDialog();
@@ -314,7 +483,16 @@ namespace notepadApplication
             }
         }
 
-        //toggle logic for wrapping text
+        /*
+         *	METHOD  	: ToggleWrapOption
+         *	DESCRIPTION	: Method containing the logic for toggling
+         *	              the wrap text option of the textbox
+         *	              		          
+         *	PARAMETERS	: NONE
+         *                	
+         *		
+         *	RETURNS		: VOID
+         */
         private void ToggleWrapOption()
         {
             if (this.WorkingTextArea.TextWrapping == System.Windows.TextWrapping.NoWrap)
@@ -334,7 +512,7 @@ namespace notepadApplication
             }
         }
 
-        //make an enum for the various save statuses of the document
+        //an enum for the various save statuses of the document
         internal enum SaveStatus
         {
             Unsaved,

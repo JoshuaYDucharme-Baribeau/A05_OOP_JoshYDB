@@ -11,5 +11,10 @@ namespace notepadApplication
         {
             InitializeComponent();
         }
+
+        private void btn_close_about(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

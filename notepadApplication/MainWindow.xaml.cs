@@ -1,7 +1,7 @@
-﻿//using Microsoft.Win32;
+﻿
 
-
-//personal note for future development: consider refactoring the confirmation dialogs, but the standard clickevents to trigger messageBox does not allow passing of additional arguments without some workarounds
+//personal note for future development:
+//  consider refactoring the confirmation dialogs, but the standard clickevents to trigger messageBox does not allow passing of additional arguments without some workarounds
 
 
 namespace notepadApplication
@@ -34,16 +34,14 @@ namespace notepadApplication
 
 
         //methods
-            //event handlers
-
-
+        //  event handlers
         private void mnu_about(object sender, System.Windows.RoutedEventArgs e)
         {
             AboutWindow abt_window = new AboutWindow();
             abt_window.ShowDialog();
         }
 
-        //* triggers when selecting wrap text from window's menu
+        // triggers when selecting wrap text from window's menu
         private void mnu_WrapText(object sender, System.Windows.RoutedEventArgs e)
         {
             ToggleWrapOption();
@@ -225,7 +223,7 @@ namespace notepadApplication
             //user either did not save when prompted, or canceled when asked for confirmation:
             else
             {
-                result = -1; // return a -1 to indicate the operation was cancelled
+                result = -1; //will return a -1 to indicate the operation was cancelled
             }
 
             return result;
@@ -249,7 +247,7 @@ namespace notepadApplication
                 //open a SaveAs dialog by passing the arguments along
                 SaveDocumentAs();
             }
-            return; //standard return
+            return;
         }
 
         private void SaveDocumentAs()
@@ -343,7 +341,5 @@ namespace notepadApplication
             Saved,
             Edited
         }
-
-
     }
 }

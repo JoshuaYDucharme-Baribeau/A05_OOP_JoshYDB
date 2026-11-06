@@ -9,11 +9,11 @@
         Title="Untitled" MinHeight="110" MinWidth="200" Height="450" Width="800" Closing="Window_Closing">
         <!--Title must be dynamic, either untitled or the name of the file-->
     <Grid>
-        <!--1 column, rendundant but allows for expnsion later-->
+        <!--1 column, rendundant but allows for expansion later-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <!--1 rows, rendundant but allows for expnsion later-->
+        <!--1 rows, rendundant but allows for expansion later-->
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>

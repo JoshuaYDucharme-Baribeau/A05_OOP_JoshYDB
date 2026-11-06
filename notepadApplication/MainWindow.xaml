@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:notepadApplication"
         mc:Ignorable="d"
         Name="NotepadWindow"
-        Title="Untitled" MinHeight="110" MinWidth="200" Height="450" Width="800">
+        Title="Untitled" MinHeight="110" MinWidth="200" Height="450" Width="800" Closing="Window_Closing">
         <!--Title must be dynamic, either untitled or the name of the file-->
     <Grid>
         <!--1 column, rendundant but allows for expnsion later-->

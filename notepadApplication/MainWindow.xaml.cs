@@ -203,8 +203,8 @@ namespace notepadApplication
                 }
             }
 
-            //if there is nothing unsaved, allow the opening of the new document
-            //NB: Unsaved state is the state of a new document which has no content, and thus does not need to be saved before opening a new one
+            //if there is nothing unsaved or if the document has been saved since the user was prompted
+            //NB: Unsaved state is the state of a new document which has no content, and thus does not need to be proceeding
             if (this.SaveState == SaveStatus.Saved || this.SaveState == SaveStatus.Unsaved || prompt_result == 1)
             {
                 switch (action)
